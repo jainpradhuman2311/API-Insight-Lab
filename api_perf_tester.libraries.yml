@@ -1,0 +1,18 @@
+charts:
+  version: 1.x
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js: { type: external, minified: true }
+    js/api-perf-charts.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+react_app:
+  version: 1.x
+  css:
+    theme:
+      js/react-app/app.css: {}
+  js:
+    js/react-app/app.js: { minified: true }
+

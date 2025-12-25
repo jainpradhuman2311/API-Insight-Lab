@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the API Performance Tester module.
+ */
+
+/**
+ * Install the new TestResult and ApiSetting entities.
+ */
+function api_perf_tester_update_8001() {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  // Install api_perf_result entity type.
+  if (!$update_manager->getEntityType('api_perf_result')) {
+    $entity_type = $entity_type_manager->getDefinition('api_perf_result');
+    $update_manager->installEntityType($entity_type);
+  }
+
+  // Install api_perf_setting entity type.
+  if (!$update_manager->getEntityType('api_perf_setting')) {
+    $entity_type = $entity_type_manager->getDefinition('api_perf_setting');
+    $update_manager->installEntityType($entity_type);
+  }
+
+  // Install api_test_config entity type.
+  if (!$update_manager->getEntityType('api_test_config')) {
+    $entity_type = $entity_type_manager->getDefinition('api_test_config');
+    $update_manager->installEntityType($entity_type);
+  }
+
+  return t('Installed API Performance Tester entities.');
+}
+
+/**
+ * Force install entities again if missing.
+ */
+function api_perf_tester_update_8002() {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  // Install api_perf_result entity type.
+  try {
+      $entity_type = $entity_type_manager->getDefinition('api_perf_result');
+      $update_manager->installEntityType($entity_type);
+  } catch (\Exception $e) {
+      // already exists or error
+  }
+
+  // Install api_perf_setting entity type.
+  try {
+      $entity_type = $entity_type_manager->getDefinition('api_perf_setting');
+      $update_manager->installEntityType($entity_type);
+  } catch (\Exception $e) {
+  }
+
+  // Install api_test_config entity type.
+  try {
+      $entity_type = $entity_type_manager->getDefinition('api_test_config');
+      $update_manager->installEntityType($entity_type);
+  } catch (\Exception $e) {
+  }
+
+  return t('Re-installed API Performance Tester entities.');
+}
+
+/**
+ * Install API Snapshot entity schema.
+ */
+function api_perf_tester_update_9001() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  
+  try {
+    $entity_type = $entity_type_manager->getDefinition('api_snapshot');
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    return t('Installed API Snapshot entity schema.');
+  } catch (\Exception $e) {
+    return t('API Snapshot entity already installed or error: @error', ['@error' => $e->getMessage()]);
+  }
+}

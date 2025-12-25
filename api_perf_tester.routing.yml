@@ -1,0 +1,337 @@
+api_perf_tester.test_page:
+  path: '/admin/config/development/api-perf-tester'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::build'
+    _title: 'API Performance Tester'
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.run_test:
+  path: '/api/perf-test/run'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::runTest'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.save_limit:
+  path: '/api/perf-test/save-limit'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::saveLimit'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.save_settings:
+  path: '/api/perf-test/settings'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::saveSettings'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.get_settings:
+  path: '/api/perf-test/settings'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getSettings'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.save_preset:
+  path: '/api/perf-test/presets'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::savePreset'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.get_presets:
+  path: '/api/perf-test/presets'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getPresets'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.delete_preset:
+  path: '/api/perf-test/presets/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::deletePreset'
+  methods: [DELETE]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.update_preset:
+  path: '/api/perf-test/preset/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::updatePreset'
+  methods: [PUT]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.save_assertions:
+  path: '/api/perf-test/assertions'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::saveAssertions'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.discovery:
+  path: '/api/discovery'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::discovery'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_list:
+  path: '/api/perf-test/snapshots'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getSnapshots'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_save:
+  path: '/api/perf-test/snapshots'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::saveSnapshot'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_bulk_action:
+  path: '/api/perf-test/snapshots/bulk'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::bulkSnapshotAction'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_detail:
+  path: '/api/perf-test/snapshots/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getSnapshotDetail'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_compare:
+  path: '/api/perf-test/snapshots/compare/{id1}/{id2}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::compareSnapshots'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.snapshots_delete:
+  path: '/api/perf-test/snapshots/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::deleteSnapshot'
+  methods: [DELETE]
+  requirements:
+    _permission: 'administer site configuration'
+
+# Request Chain Routes
+api_perf_tester.chains_list:
+  path: '/api/perf-test/chains'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getChains'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.chains_save:
+  path: '/api/perf-test/chains'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::saveChain'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.chains_update:
+  path: '/api/perf-test/chains/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::updateChain'
+  methods: [PUT]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.chains_delete:
+  path: '/api/perf-test/chains/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::deleteChain'
+  methods: [DELETE]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.chains_run:
+  path: '/api/perf-test/chains/run'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::runChain'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+# ==========================================
+# Test API Endpoints (for testing the tool)
+# ==========================================
+
+api_perf_tester.test_health:
+  path: '/api/test/health'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::health'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_echo:
+  path: '/api/test/echo'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::echo'
+  methods: [GET, POST, PUT, DELETE]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_delay:
+  path: '/api/test/delay'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::delay'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_status:
+  path: '/api/test/status/{code}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::status'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    code: '\d+'
+
+api_perf_tester.test_users:
+  path: '/api/test/users'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::users'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_user:
+  path: '/api/test/users/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::user'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    id: '\d+'
+
+api_perf_tester.test_user_posts:
+  path: '/api/test/users/{id}/posts'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::userPosts'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+    id: '\d+'
+
+api_perf_tester.test_login:
+  path: '/api/test/login'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::login'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_protected:
+  path: '/api/test/protected'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::protectedResource'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_order:
+  path: '/api/test/orders'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::createOrder'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+
+api_perf_tester.test_random:
+  path: '/api/test/random'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\TestApiController::random'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+# Configuration Import/Export Routes
+api_perf_tester.export_configs:
+  path: '/api/perf-test/export'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::exportConfigs'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.import_configs:
+  path: '/api/perf-test/import'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::importConfigs'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.import_batch:
+  path: '/api/perf-test/import/batch'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::importBatch'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.get_environments:
+  path: '/api/perf-test/environments'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::getEnvironmentProfiles'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.save_environment:
+  path: '/api/perf-test/environments'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::saveEnvironmentProfile'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.delete_environment:
+  path: '/api/perf-test/environments/{id}'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::deleteEnvironmentProfile'
+  methods: [DELETE]
+  requirements:
+    _permission: 'administer site configuration'
+    id: \d+
+
+api_perf_tester.set_active_environment:
+  path: '/api/perf-test/environments/active'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ConfigExportController::setActiveEnvironment'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+
+api_perf_tester.get_groups:
+  path: '/api/perf-test/groups'
+  defaults:
+    _controller: '\Drupal\api_perf_tester\Controller\ApiTestController::getGroups'
+  methods: [GET]
+  requirements:
+    _permission: 'administer site configuration'
