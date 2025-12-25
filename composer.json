@@ -1,0 +1,42 @@
+{
+    "name": "drupal/api_insight_lab",
+    "description": "A comprehensive API performance testing and monitoring solution.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/api_insight_lab",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Pradhuman Jain",
+            "homepage": "https://www.drupal.org/u/pradhumanjain2311",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Mehul Nishad",
+            "homepage": "https://www.drupal.org/u/mehul_786",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Keshav Patel",
+            "homepage": "https://www.drupal.org/u/keshav-patel",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Aashish Dwivedi",
+            "homepage": "https://www.drupal.org/u/adwivedi008",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Harsh Singh Rana",
+            "homepage": "https://www.drupal.org/u/harsh-0",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "drupal/core": "^10 || ^11"
+    },
+    "extra": {
+        "drupal": {
+            "package": "Administration"
+        }
+    }
+}

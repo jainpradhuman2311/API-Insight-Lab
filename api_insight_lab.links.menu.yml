@@ -1,6 +1,6 @@
-api_insight_lab.test_page:
+api_insight_lab.dashboard:
   title: 'API Insight Lab'
   description: 'Test and monitor API performance with Insight Lab.'
   parent: system.admin_config_development
-  route_name: api_insight_lab.test_page
+  route_name: api_insight_lab.dashboard
   weight: 100

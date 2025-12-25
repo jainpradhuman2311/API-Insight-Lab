@@ -3,18 +3,6 @@ type: module
 description: 'A comprehensive API testing suite with load testing, request chaining, environment management, snapshots, and detailed analytics.'
 package: 'Development'
 core_version_requirement: ^10 || ^11
-version: '1.0.0'
-
-# Project information
-# project: 'api_insight_lab'
-# datestamp: 1234567890
-
-# Dependencies
+configure: api_insight_lab.dashboard
 dependencies:
   - drupal:rest
-  
-# Configuration
-configure: api_insight_lab.test_page
-
-# PHP requirement
-php: ^8.1

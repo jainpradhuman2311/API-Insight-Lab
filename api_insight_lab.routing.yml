@@ -1,8 +1,8 @@
-api_insight_lab.test_page:
+api_insight_lab.dashboard:
   path: '/admin/config/development/api-insight-lab'
   defaults:
     _controller: '\Drupal\api_insight_lab\Controller\ApiTestController::build'
-    _title: 'API Insight Lab'
+    _title: 'API Insight Lab Dashboard'
   requirements:
     _permission: 'administer site configuration'
 
