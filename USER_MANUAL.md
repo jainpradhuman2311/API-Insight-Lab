@@ -1,6 +1,6 @@
-# API Performance Tester - User Manual
+# API Insight Lab - User Manual
 
-A comprehensive guide to using the API Performance Tester module effectively.
+A comprehensive guide to using the API Insight Lab module effectively.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ A comprehensive guide to using the API Performance Tester module effectively.
 ### Accessing the Module
 
 1. Log in to your Drupal site as an administrator
-2. Navigate to: **Administration → Configuration → Development → API Performance Tester**
+2. Navigate to: **Administration → Configuration → Development → API Insight Lab**
 3. Or go directly to: `/admin/config/development/api-perf-tester`
 
 ### Interface Overview

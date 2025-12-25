@@ -116,7 +116,7 @@ export function BulkTestView({ savedConfigs, onLoadPreset }: BulkTestViewProps) 
                     assertions: config.assertions || [] // Pass assertions if any
                 }
 
-                const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+                const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
 
                 const res = await fetch('/api/perf-test/run', {
                     method: 'POST',

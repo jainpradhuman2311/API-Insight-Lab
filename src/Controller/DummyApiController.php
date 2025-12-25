@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Controller;
+namespace Drupal\api_insight_lab\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;

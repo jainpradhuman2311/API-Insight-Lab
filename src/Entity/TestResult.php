@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains \Drupal\api_perf_tester\Entity\TestResult.
+ * Contains \Drupal\api_insight_lab\Entity\TestResult.
  */
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Entity;
+namespace Drupal\api_insight_lab\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -29,7 +29,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
  *   admin_permission = "administer site configuration",
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\api_perf_tester\TestResultListBuilder",
+ *     "list_builder" = "Drupal\api_insight_lab\TestResultListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
  *       "default" = "Drupal\Core\Entity\ContentEntityForm",

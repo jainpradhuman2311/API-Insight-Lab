@@ -1,4 +1,4 @@
-# API Performance Tester
+# API Insight Lab
 
 ![Module Status](https://img.shields.io/badge/status-stable-green)
 ![Drupal Version](https://img.shields.io/badge/drupal-10%20%7C%2011-blue)
@@ -94,17 +94,17 @@ A comprehensive Drupal module for testing and monitoring API performance, respon
 ### Via Composer (Recommended)
 
 ```bash
-composer require drupal/api_perf_tester
-drush en api_perf_tester -y
+composer require drupal/api_insight_lab
+drush en api_insight_lab -y
 drush cr
 ```
 
 ### Manual Installation
 
-1. Download and extract to `modules/custom/api_perf_tester/`
+1. Download and extract to `modules/custom/api_insight_lab/`
 2. Enable the module:
    ```bash
-   drush en api_perf_tester -y
+   drush en api_insight_lab -y
    drush cr
    ```
 
@@ -113,7 +113,7 @@ drush cr
 If modifying the React UI:
 
 ```bash
-cd web/modules/custom/api_perf_tester/react-ui
+cd web/modules/custom/api_insight_lab/react-ui
 npm install
 npm run build
 ```

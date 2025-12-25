@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-const container = document.getElementById('api-perf-tester-app') || document.getElementById('root')
+const container = document.getElementById('api-insight-lab-app') || document.getElementById('root')
 
 if (container) {
   createRoot(container).render(

@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\api_perf_tester\Plugin\QueueWorker;
+namespace Drupal\api_insight_lab\Plugin\QueueWorker;
 
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use Drupal\api_perf_tester\Entity\TestResult;
+use Drupal\api_insight_lab\Entity\TestResult;
 
 /**
  * Processes API performance tests in the background.

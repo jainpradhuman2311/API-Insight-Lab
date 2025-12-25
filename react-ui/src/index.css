@@ -228,14 +228,6 @@ main {
   margin: 0 !important;
 }
 
-/* Improve code snippet text rendering */
-pre code,
-pre span,
-.code-editor-container,
-.code-editor-container pre,
-.code-editor-container span {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "liga" 0;
+.region-highlighted {
+  display: none !important;
 }

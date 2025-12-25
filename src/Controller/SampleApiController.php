@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Controller;
+namespace Drupal\api_insight_lab\Controller;
 
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Cache\CacheableMetadata;
@@ -43,7 +43,7 @@ class SampleApiController extends ControllerBase
             'random_id' => uniqid('data_', true),
             'cache_info' => [
                 'max_age' => 60,
-                'tags' => ['api_perf_tester:sample', 'config:system.site'],
+                'tags' => ['api_insight_lab:sample', 'config:system.site'],
                 'contexts' => ['url.query_args'],
             ],
         ];
@@ -53,7 +53,7 @@ class SampleApiController extends ControllerBase
         // Add cacheability metadata.
         $cacheMetadata = new CacheableMetadata();
         $cacheMetadata->setCacheMaxAge(60); // Cache for 60 seconds.
-        $cacheMetadata->addCacheTags(['api_perf_tester:sample', 'config:system.site']);
+        $cacheMetadata->addCacheTags(['api_insight_lab:sample', 'config:system.site']);
         $cacheMetadata->addCacheContexts(['url.query_args']);
 
         $response->addCacheableDependency($cacheMetadata);
@@ -145,7 +145,7 @@ class SampleApiController extends ControllerBase
             'items' => array_slice($items, 0, 5), // Only return first 5 in response.
             'cache_info' => [
                 'max_age' => 300,
-                'tags' => ['api_perf_tester:heavy'],
+                'tags' => ['api_insight_lab:heavy'],
                 'note' => 'Cached for 5 minutes to reduce server load',
             ],
         ];
@@ -155,7 +155,7 @@ class SampleApiController extends ControllerBase
         // Long cache time for expensive operations.
         $cacheMetadata = new CacheableMetadata();
         $cacheMetadata->setCacheMaxAge(300); // Cache for 5 minutes.
-        $cacheMetadata->addCacheTags(['api_perf_tester:heavy']);
+        $cacheMetadata->addCacheTags(['api_insight_lab:heavy']);
 
         $response->addCacheableDependency($cacheMetadata);
         $response->headers->set('X-Api-Perf-Tester', 'heavy-endpoint');

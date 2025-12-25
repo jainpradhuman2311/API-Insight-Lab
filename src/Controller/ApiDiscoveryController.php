@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Controller;
+namespace Drupal\api_insight_lab\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -307,7 +307,7 @@ class ApiDiscoveryController extends ControllerBase
             'entity:comment' => 'Comment entities',
             'entity:media' => 'Media entities (images, videos, etc.)',
             'entity:block_content' => 'Custom block content',
-            'api_perf_tester_test' => 'Performance Test REST Resource',
+            'api_insight_lab_test' => 'Performance Test REST Resource',
         ];
 
         return $descriptions[$pluginId] ?? ucfirst(str_replace(['entity:', '_'], ['', ' '], $pluginId)) . ' REST resource';

@@ -1,6 +1,6 @@
-# Contributing to API Performance Tester
+# Contributing to API Insight Lab
 
-Thank you for your interest in contributing to the API Performance Tester module! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to the API Insight Lab module! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -13,7 +13,7 @@ By participating in this project, you agree to abide by the [Drupal Code of Cond
 1. **Clone the Repository**
    ```bash
    git clone [repository-url]
-   cd api_perf_tester
+   cd api_insight_lab
    ```
 
 2. **Install Dependencies**
@@ -30,7 +30,7 @@ By participating in this project, you agree to abide by the [Drupal Code of Cond
 
 4. **Enable Module in Drupal**
    ```bash
-   drush en api_perf_tester -y
+   drush en api_insight_lab -y
    drush cr
    ```
 
@@ -53,10 +53,10 @@ Follow [Drupal Coding Standards](https://www.drupal.org/docs/develop/standards):
 composer require --dev drupal/coder
 
 # Check code
-./vendor/bin/phpcs --standard=Drupal,DrupalPractice web/modules/custom/api_perf_tester
+./vendor/bin/phpcs --standard=Drupal,DrupalPractice web/modules/custom/api_insight_lab
 
 # Auto-fix issues
-./vendor/bin/phpcbf --standard=Drupal web/modules/custom/api_perf_tester
+./vendor/bin/phpcbf --standard=Drupal web/modules/custom/api_insight_lab
 ```
 
 ### JavaScript/TypeScript Code
@@ -84,7 +84,7 @@ npm run format
 
 ```bash
 # Run PHPUnit tests
-./vendor/bin/phpunit web/modules/custom/api_perf_tester
+./vendor/bin/phpunit web/modules/custom/api_insight_lab
 ```
 
 ### Frontend Tests
@@ -207,7 +207,7 @@ When reporting bugs, include:
 
 3. **Use Drupal Services**
    ```php
-   $config = \Drupal::config('api_perf_tester.settings');
+   $config = \Drupal::config('api_insight_lab.settings');
    ```
 
 ### React Frontend
@@ -255,4 +255,4 @@ By contributing, you agree that your contributions will be licensed under GPL-2.
 
 ---
 
-Thank you for contributing to API Performance Tester! 🚀
+Thank you for contributing to API Insight Lab! 🚀

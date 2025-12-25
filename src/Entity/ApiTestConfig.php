@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains \Drupal\api_perf_tester\Entity\ApiTestConfig.
+ * Contains \Drupal\api_insight_lab\Entity\ApiTestConfig.
  */
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Entity;
+namespace Drupal\api_insight_lab\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -29,7 +29,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
  *   admin_permission = "administer site configuration",
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\api_perf_tester\ApiTestConfigListBuilder",
+ *     "list_builder" = "Drupal\api_insight_lab\ApiTestConfigListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
  *       "default" = "Drupal\Core\Entity\ContentEntityForm",
@@ -92,7 +92,7 @@ class ApiTestConfig extends ContentEntityBase implements ContentEntityInterface
 
         $fields['group_id'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Group ID'))
-            ->setDescription(t('Group identifier for organizing presets (e.g., api_perf_tester_test).'))
+            ->setDescription(t('Group identifier for organizing presets (e.g., api_insight_lab_test).'))
             ->setSettings([
                 'max_length' => 255,
             ])

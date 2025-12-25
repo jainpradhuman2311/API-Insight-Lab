@@ -251,14 +251,14 @@
   /**
    * Drupal behavior for API Performance Tester charts.
    */
-  Drupal.behaviors.apiPerfTesterCharts = {
+  Drupal.behaviors.apiInsightLabCharts = {
     attach: function (context, settings) {
       // Check if chart data is available
-      if (!settings.apiPerfTester || !settings.apiPerfTester.chartData) {
+      if (!settings.apiInsightLab || !settings.apiInsightLab.chartData) {
         return;
       }
 
-      const chartData = settings.apiPerfTester.chartData;
+      const chartData = settings.apiInsightLab.chartData;
 
       // Render charts once
       once('api-perf-charts', '#api-perf-charts-container', context).forEach(function () {
@@ -288,7 +288,7 @@
   /**
    * Copy cURL command to clipboard.
    */
-  Drupal.behaviors.apiPerfTesterCurl = {
+  Drupal.behaviors.apiInsightLabCurl = {
     attach: function (context) {
       once('api-perf-curl', '.curl-copy-btn', context).forEach(function (button) {
         button.addEventListener('click', function (e) {
@@ -313,7 +313,7 @@
   /**
    * Response inspector tab switching.
    */
-  Drupal.behaviors.apiPerfTesterTabs = {
+  Drupal.behaviors.apiInsightLabTabs = {
     attach: function (context) {
       once('api-perf-tabs', '.response-tab-btn', context).forEach(function (button) {
         button.addEventListener('click', function (e) {

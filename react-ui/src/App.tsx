@@ -96,7 +96,7 @@ function AppContent() {
   // Load snapshots from backend on mount
   const loadSnapshots = async () => {
     try {
-      const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+      const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
       const res = await fetch('/api/perf-test/snapshots', {
         credentials: 'include',
         headers: { 'X-CSRF-Token': csrfToken || '' }
@@ -492,7 +492,7 @@ function AppContent() {
       const res = await fetch(`/api/perf-test/presets/${id}`, {
         method: 'DELETE',
         headers: {
-          'X-CSRF-Token': (window as any).drupalSettings?.api_perf_tester?.csrf_token || ''
+          'X-CSRF-Token': (window as any).drupalSettings?.api_insight_lab?.csrf_token || ''
         }
       });
       const data = await res.json();
@@ -682,7 +682,7 @@ function AppContent() {
   const fetchDiscoveredApis = async () => {
     setLoadingApis(true)
     try {
-      const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+      const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
       const res = await fetch('/api/discovery', {
         credentials: 'include',
         headers: { 'X-CSRF-Token': csrfToken || '' }
@@ -738,7 +738,7 @@ function AppContent() {
     let progressInterval: any; // Declare outside try to be accessible in finally
 
     try {
-      const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+      const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
 
       // Simulate progress since backend is synchronous (no streaming)
       // Calculate estimated duration
@@ -943,7 +943,7 @@ function AppContent() {
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="font-semibold text-lg tracking-tight">PerfTester</span>
+            <span className="font-semibold text-lg tracking-tight">Insight Lab</span>
           </div>
 
           <div className="space-y-1">
@@ -3044,25 +3044,37 @@ function AppContent() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <h4 className="text-xs font-medium text-zinc-500 mb-2">Snapshot 1</h4>
-                        <CodeSnippet
-                          code={typeof comparisonData.snapshot1?.response_body === 'string'
-                            ? comparisonData.snapshot1?.response_body
-                            : JSON.stringify(comparisonData.snapshot1?.response_body, null, 2)}
-                          language="json"
-                          title="response.json"
-                          maxHeight="350px"
-                        />
+                        {comparisonData.snapshot1?.response_body ? (
+                          <CodeSnippet
+                            code={typeof comparisonData.snapshot1.response_body === 'string'
+                              ? comparisonData.snapshot1.response_body
+                              : JSON.stringify(comparisonData.snapshot1.response_body, null, 2)}
+                            language="json"
+                            title="response.json"
+                            maxHeight="350px"
+                          />
+                        ) : (
+                          <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md text-sm text-zinc-500 italic">
+                            No response body saved
+                          </div>
+                        )}
                       </div>
                       <div>
                         <h4 className="text-xs font-medium text-zinc-500 mb-2">Snapshot 2</h4>
-                        <CodeSnippet
-                          code={typeof comparisonData.snapshot2?.response_body === 'string'
-                            ? comparisonData.snapshot2?.response_body
-                            : JSON.stringify(comparisonData.snapshot2?.response_body, null, 2)}
-                          language="json"
-                          title="response.json"
-                          maxHeight="350px"
-                        />
+                        {comparisonData.snapshot2?.response_body ? (
+                          <CodeSnippet
+                            code={typeof comparisonData.snapshot2.response_body === 'string'
+                              ? comparisonData.snapshot2.response_body
+                              : JSON.stringify(comparisonData.snapshot2.response_body, null, 2)}
+                            language="json"
+                            title="response.json"
+                            maxHeight="350px"
+                          />
+                        ) : (
+                          <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md text-sm text-zinc-500 italic">
+                            No response body saved
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

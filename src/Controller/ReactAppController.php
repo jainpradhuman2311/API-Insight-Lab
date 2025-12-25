@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Controller;
+namespace Drupal\api_insight_lab\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
@@ -27,10 +27,10 @@ class ReactAppController extends ControllerBase
             ],
             '#attached' => [
                 'library' => [
-                    'api_perf_tester/react_app',
+                    'api_insight_lab/react_app',
                 ],
                 'drupalSettings' => [
-                    'api_perf_tester' => [
+                    'api_insight_lab' => [
                         'csrf_token' => \Drupal::service('csrf_token')->get(),
                         'api_endpoint' => '/api/perf-test/run',
                     ],

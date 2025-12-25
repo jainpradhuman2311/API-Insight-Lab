@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\api_perf_tester;
+namespace Drupal\api_insight_lab;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
@@ -9,7 +9,7 @@ use Drupal\Core\Link;
 /**
  * Defines a class to build a listing of Test Result entities.
  *
- * @ingroup api_perf_tester
+ * @ingroup api_insight_lab
  */
 class TestResultListBuilder extends EntityListBuilder
 {
@@ -30,7 +30,7 @@ class TestResultListBuilder extends EntityListBuilder
      */
     public function buildRow(EntityInterface $entity)
     {
-        /** @var \Drupal\api_perf_tester\Entity\TestResult $entity */
+        /** @var \Drupal\api_insight_lab\Entity\TestResult $entity */
         $row['id'] = $entity->id();
         $row['url'] = Link::createFromRoute(
             $entity->url->value,

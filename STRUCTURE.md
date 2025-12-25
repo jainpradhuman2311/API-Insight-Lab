@@ -1,4 +1,4 @@
-# API Performance Tester - Architecture & Structure
+# API Insight Lab - Architecture & Structure
 
 This document provides a technical overview of the module's architecture, data flows, and implementation details for developers and contributors.
 
@@ -16,24 +16,24 @@ This document provides a technical overview of the module's architecture, data f
 ## Directory Structure
 
 ```
-api_perf_tester/
+api_insight_lab/
 ├── README.md                          # Overview and quick start
 ├── USER_MANUAL.md                     # Detailed user guide
 ├── STRUCTURE.md                       # This file (architecture docs)
 ├── CONTRIBUTING.md                    # Contribution guidelines
 ├── LICENSE.txt                        # GPL-2.0-or-later
 │
-├── api_perf_tester.info.yml          # Module metadata
-├── api_perf_tester.routing.yml       # Route definitions (~260 lines)
-├── api_perf_tester.links.menu.yml    # Admin menu links
-├── api_perf_tester.install           # Install/update hooks
-├── api_perf_tester.libraries.yml     # Asset library definitions
+├── api_insight_lab.info.yml          # Module metadata
+├── api_insight_lab.routing.yml       # Route definitions (~260 lines)
+├── api_insight_lab.links.menu.yml    # Admin menu links
+├── api_insight_lab.install           # Install/update hooks
+├── api_insight_lab.libraries.yml     # Asset library definitions
 │
 ├── config/
 │   ├── install/                      # Default configuration
-│   │   └── api_perf_tester.settings.yml
+│   │   └── api_insight_lab.settings.yml
 │   └── schema/                       # Configuration schema
-│       └── api_perf_tester.schema.yml
+│       └── api_insight_lab.schema.yml
 │
 ├── src/
 │   ├── Controller/
@@ -412,7 +412,7 @@ const [result, setResult] = useState<ChainResult | null>(null)
 All API calls use the Fetch API with CSRF token:
 
 ```typescript
-const csrfToken = window.drupalSettings?.api_perf_tester?.csrf_token;
+const csrfToken = window.drupalSettings?.api_insight_lab?.csrf_token;
 
 const response = await fetch('/api/perf-test/run', {
   method: 'POST',
@@ -537,7 +537,7 @@ npm run build
 
 ```bash
 # Rebuild frontend
-cd web/modules/custom/api_perf_tester/react-ui
+cd web/modules/custom/api_insight_lab/react-ui
 npm run build
 
 # Clear Drupal cache

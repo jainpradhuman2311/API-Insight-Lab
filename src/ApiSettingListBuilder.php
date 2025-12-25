@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\api_perf_tester;
+namespace Drupal\api_insight_lab;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
@@ -9,7 +9,7 @@ use Drupal\Core\Link;
 /**
  * Defines a class to build a listing of API Setting entities.
  *
- * @ingroup api_perf_tester
+ * @ingroup api_insight_lab
  */
 class ApiSettingListBuilder extends EntityListBuilder
 {
@@ -29,7 +29,7 @@ class ApiSettingListBuilder extends EntityListBuilder
      */
     public function buildRow(EntityInterface $entity)
     {
-        /** @var \Drupal\api_perf_tester\Entity\ApiSetting $entity */
+        /** @var \Drupal\api_insight_lab\Entity\ApiSetting $entity */
         $row['id'] = $entity->id();
         $row['api_id'] = Link::createFromRoute(
             $entity->api_id->value,

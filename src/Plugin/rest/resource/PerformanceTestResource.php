@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\api_perf_tester\Plugin\rest\resource;
+namespace Drupal\api_insight_lab\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Provides a Performance Test resource.
  *
  * @RestResource(
- *   id = "api_perf_tester_test",
+ *   id = "api_insight_lab_test",
  *   label = @Translation("Performance Test Resource"),
  *   uri_paths = {
  *     "canonical" = "/rest/perf-test/{id}",

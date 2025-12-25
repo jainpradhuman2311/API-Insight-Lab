@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\api_perf_tester\Controller\ApiTestController.
+ * Contains \Drupal\api_insight_lab\Controller\ApiTestController.
  *
  * Provides REST API endpoints for testing API performance, managing test
  * configurations, snapshots, and discovering available APIs.
@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\api_perf_tester\Controller;
+namespace Drupal\api_insight_lab\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Http\ClientFactory;
@@ -27,11 +27,11 @@ use Drupal\Core\State\StateInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\ClientInterface;
 use Drupal\Component\Utility\Xss;
-use Drupal\api_perf_tester\Entity\ApiTestConfig;
-use Drupal\api_perf_tester\Entity\Assertion;
-use Drupal\api_perf_tester\Entity\ApiSnapshot;
-use Drupal\api_perf_tester\Entity\TestResult;
-use Drupal\api_perf_tester\Entity\RequestChain;
+use Drupal\api_insight_lab\Entity\ApiTestConfig;
+use Drupal\api_insight_lab\Entity\Assertion;
+use Drupal\api_insight_lab\Entity\ApiSnapshot;
+use Drupal\api_insight_lab\Entity\TestResult;
+use Drupal\api_insight_lab\Entity\RequestChain;
 
 /**
  * Provides REST API endpoints for API performance testing.
@@ -43,7 +43,7 @@ use Drupal\api_perf_tester\Entity\RequestChain;
  * - API discovery and analysis
  * - Global settings management
  *
- * @package Drupal\api_perf_tester\Controller
+ * @package Drupal\api_insight_lab\Controller
  */
 class ApiTestController extends ControllerBase
 {
@@ -107,13 +107,13 @@ class ApiTestController extends ControllerBase
     {
         return [
             '#type' => 'markup',
-            '#markup' => '<div id="api-perf-tester-app"></div>',
+            '#markup' => '<div id="api-insight-lab-app"></div>',
             '#attached' => [
                 'library' => [
-                    'api_perf_tester/react_app',
+                    'api_insight_lab/react_app',
                 ],
                 'drupalSettings' => [
-                    'api_perf_tester' => [
+                    'api_insight_lab' => [
                         'csrf_token' => \Drupal::csrfToken()->get('rest'),
                     ],
                 ],
@@ -135,11 +135,11 @@ class ApiTestController extends ControllerBase
         $content = json_decode($request->getContent(), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            \Drupal::logger('api_perf_tester')->error('Invalid JSON: ' . $request->getContent());
+            \Drupal::logger('api_insight_lab')->error('Invalid JSON: ' . $request->getContent());
             return new JsonResponse(['error' => 'Invalid JSON'], 400);
         }
 
-        \Drupal::logger('api_perf_tester')->info('Run Test Request: ' . print_r($content, true));
+        \Drupal::logger('api_insight_lab')->info('Run Test Request: ' . print_r($content, true));
 
         // Extract parameters.
         $url = $content['url'] ?? '';
@@ -231,8 +231,8 @@ class ApiTestController extends ControllerBase
             // Save result to Entity.
             if (!isset($results['error'])) {
                 try {
-                    /** @var \Drupal\api_perf_tester\Entity\TestResult $testResult */
-                    $testResult = \Drupal\api_perf_tester\Entity\TestResult::create([
+                    /** @var \Drupal\api_insight_lab\Entity\TestResult $testResult */
+                    $testResult = \Drupal\api_insight_lab\Entity\TestResult::create([
                         'url' => $url,
                         'method' => $method,
                         'status' => $results['firstResponse']['status'] ?? 0,
@@ -244,7 +244,7 @@ class ApiTestController extends ControllerBase
                     $testResult->save();
                 } catch (\Exception $e) {
                     // Log error but don't fail the response
-                    \Drupal::logger('api_perf_tester')->error('Failed to save test result: ' . $e->getMessage());
+                    \Drupal::logger('api_insight_lab')->error('Failed to save test result: ' . $e->getMessage());
                 }
             }
 
@@ -273,7 +273,7 @@ class ApiTestController extends ControllerBase
                 $results['assertions_total'] = count($results['assertions']);
             }
         } catch (\Throwable $e) {
-            \Drupal::logger('api_perf_tester')->error('Test execution failed: ' . $e->getMessage());
+            \Drupal::logger('api_insight_lab')->error('Test execution failed: ' . $e->getMessage());
             return new JsonResponse(['error' => 'Test execution failed: ' . $e->getMessage()], 500);
         }
 
@@ -1001,7 +1001,7 @@ class ApiTestController extends ControllerBase
      */
     public function getGlobalSettings(): JsonResponse
     {
-        $config = \Drupal::config('api_perf_tester.settings');
+        $config = \Drupal::config('api_insight_lab.settings');
         $data = [
             'default_auth' => [
                 'type' => $config->get('default_auth.type') ?: 'none',
@@ -1027,7 +1027,7 @@ class ApiTestController extends ControllerBase
         }
 
         $auth = $content['default_auth'];
-        $config = \Drupal::service('config.factory')->getEditable('api_perf_tester.settings');
+        $config = \Drupal::service('config.factory')->getEditable('api_insight_lab.settings');
 
         if (isset($auth['type'])) {
             $config->set('default_auth.type', $auth['type']);
@@ -1063,7 +1063,7 @@ class ApiTestController extends ControllerBase
         }
 
         try {
-            /** @var \Drupal\api_perf_tester\Entity\ApiTestConfig|null $entity */
+            /** @var \Drupal\api_insight_lab\Entity\ApiTestConfig|null $entity */
             $entity = \Drupal::entityTypeManager()->getStorage('api_test_config')->load($id);
             if ($entity) {
                 $entity->delete();
@@ -1091,7 +1091,7 @@ class ApiTestController extends ControllerBase
         $entities = $storage->loadMultiple($ids);
 
         $presets = [];
-        /** @var \Drupal\api_perf_tester\Entity\ApiTestConfig $entity */
+        /** @var \Drupal\api_insight_lab\Entity\ApiTestConfig $entity */
         foreach ($entities as $entity) {
             // Load assertions for this config.
             $assertions = [];
@@ -1103,7 +1103,7 @@ class ApiTestController extends ControllerBase
                 $assertionIds = $assertionQuery->execute();
                 $assertionEntities = $assertionStorage->loadMultiple($assertionIds);
 
-                /** @var \Drupal\api_perf_tester\Entity\Assertion $assertion */
+                /** @var \Drupal\api_insight_lab\Entity\Assertion $assertion */
                 foreach ($assertionEntities as $assertion) {
                     $assertions[] = [
                         'id' => $assertion->id(),
@@ -1116,7 +1116,7 @@ class ApiTestController extends ControllerBase
                 }
             } catch (\Exception $e) {
                 // Log error but continue loading presets without assertions
-                \Drupal::logger('api_perf_tester')->error('Failed to load assertions for config ' . $entity->id() . ': ' . $e->getMessage());
+                \Drupal::logger('api_insight_lab')->error('Failed to load assertions for config ' . $entity->id() . ': ' . $e->getMessage());
             }
 
             $presets[] = [
@@ -1151,8 +1151,8 @@ class ApiTestController extends ControllerBase
         }
 
         try {
-            /** @var \Drupal\api_perf_tester\Entity\ApiTestConfig $entity */
-            $entity = \Drupal\api_perf_tester\Entity\ApiTestConfig::create([
+            /** @var \Drupal\api_insight_lab\Entity\ApiTestConfig $entity */
+            $entity = \Drupal\api_insight_lab\Entity\ApiTestConfig::create([
                 'name' => $name,
                 'url' => $url,
                 'method' => $method,
@@ -1201,7 +1201,7 @@ class ApiTestController extends ControllerBase
     {
         try {
             $content = json_decode($request->getContent(), true);
-            /** @var \Drupal\api_perf_tester\Entity\ApiTestConfig|null $entity */
+            /** @var \Drupal\api_insight_lab\Entity\ApiTestConfig|null $entity */
             $entity = \Drupal::entityTypeManager()->getStorage('api_test_config')->load($id);
 
             if (!$entity) {
@@ -1250,7 +1250,7 @@ class ApiTestController extends ControllerBase
             $presets = $storage->loadMultiple($ids);
 
             $groups = [];
-            /** @var \Drupal\api_perf_tester\Entity\ApiTestConfig $preset */
+            /** @var \Drupal\api_insight_lab\Entity\ApiTestConfig $preset */
             foreach ($presets as $preset) {
                 $groupId = $preset->get('group_id')->value ?? 'ungrouped';
                 if (!isset($groups[$groupId])) {
@@ -1277,7 +1277,7 @@ class ApiTestController extends ControllerBase
         if ($groupId === 'ungrouped') {
             return 'Ungrouped';
         }
-        // Convert api_perf_tester_test to "API Perf Tester Test"
+        // Convert api_insight_lab_test to "API Perf Tester Test"
         return ucwords(str_replace('_', ' ', $groupId));
     }
 
@@ -1310,8 +1310,8 @@ class ApiTestController extends ControllerBase
             $stats = $test_results['stats'] ?? [];
             $bottleneck = $test_results['bottleneck'] ?? [];
 
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot $snapshot */
-            $snapshot = \Drupal\api_perf_tester\Entity\ApiSnapshot::create([
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot $snapshot */
+            $snapshot = \Drupal\api_insight_lab\Entity\ApiSnapshot::create([
                 'config_id' => $config_id,
                 'snapshot_name' => $snapshot_name,
                 'version_number' => $version_number,
@@ -1357,7 +1357,7 @@ class ApiTestController extends ControllerBase
             $entities = $storage->loadMultiple($ids);
 
             $snapshots = [];
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot $entity */
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot $entity */
             foreach ($entities as $entity) {
                 // Extract URL and method from request_config JSON
                 $requestConfig = json_decode($entity->get('request_config')->value ?? '{}', true);
@@ -1389,7 +1389,7 @@ class ApiTestController extends ControllerBase
     {
         try {
             $storage = \Drupal::entityTypeManager()->getStorage('api_snapshot');
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot|null $snapshot */
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot|null $snapshot */
             $snapshot = $storage->load($id);
 
             if (!$snapshot) {
@@ -1421,17 +1421,18 @@ class ApiTestController extends ControllerBase
     {
         try {
             $storage = \Drupal::entityTypeManager()->getStorage('api_snapshot');
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot|null $snapshot1 */
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot|null $snapshot1 */
             $snapshot1 = $storage->load($id1);
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot|null $snapshot2 */
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot|null $snapshot2 */
             $snapshot2 = $storage->load($id2);
 
             if (!$snapshot1 || !$snapshot2) {
                 return new JsonResponse(['error' => 'One or both snapshots not found'], 404);
             }
 
-            $body1 = json_decode($snapshot1->get('response_body')->value, true);
-            $body2 = json_decode($snapshot2->get('response_body')->value, true);
+            // Get response bodies directly (they are stored as strings)
+            $body1 = $snapshot1->get('response_body')->value ?? '';
+            $body2 = $snapshot2->get('response_body')->value ?? '';
 
             return new JsonResponse([
                 'snapshot1' => [
@@ -1454,7 +1455,10 @@ class ApiTestController extends ControllerBase
                     'request_config' => json_decode($snapshot2->get('request_config')->value ?? '{}', true),
                     'created' => $snapshot2->get('created')->value,
                 ],
-                'diff' => $this->calculateDiff($body1, $body2),
+                'diff' => $this->calculateDiff(
+                    json_decode($body1, true) ?? $body1,
+                    json_decode($body2, true) ?? $body2
+                ),
             ]);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], 500);
@@ -1476,7 +1480,7 @@ class ApiTestController extends ControllerBase
             $entities = $storage->loadMultiple($ids);
 
             $snapshots = [];
-            /** @var \Drupal\api_perf_tester\Entity\ApiSnapshot $entity */
+            /** @var \Drupal\api_insight_lab\Entity\ApiSnapshot $entity */
             foreach ($entities as $entity) {
                 // Decode request_config to get URL and method
                 $requestConfig = json_decode($entity->get('request_config')->value ?? '{}', true);
@@ -1562,7 +1566,7 @@ class ApiTestController extends ControllerBase
     public function getSettings(): JsonResponse
     {
         $state = \Drupal::state();
-        $settings = $state->get('api_perf_tester.settings', [
+        $settings = $state->get('api_insight_lab.settings', [
             'baseUrl' => '',
             'defaultAuthType' => 'none',
             'defaultUsername' => '',
@@ -1601,7 +1605,7 @@ class ApiTestController extends ControllerBase
             'defaultConcurrency' => $data['defaultConcurrency'] ?? 10,
         ];
 
-        $state->set('api_perf_tester.settings', $settings);
+        $state->set('api_insight_lab.settings', $settings);
 
         return new JsonResponse(['success' => true]);
     }
@@ -1615,12 +1619,12 @@ class ApiTestController extends ControllerBase
             $storage = \Drupal::entityTypeManager()->getStorage('api_assertion');
             $assertions = $storage->loadByProperties(['config_id' => $config_id]);
         } catch (\Exception $e) {
-            \Drupal::logger('api_perf_tester')->error('Failed to load assertions logic for config ' . $config_id . ': ' . $e->getMessage());
+            \Drupal::logger('api_insight_lab')->error('Failed to load assertions logic for config ' . $config_id . ': ' . $e->getMessage());
             return [];
         }
 
         $result = [];
-        /** @var \Drupal\api_perf_tester\Entity\Assertion $assertion */
+        /** @var \Drupal\api_insight_lab\Entity\Assertion $assertion */
         foreach ($assertions as $assertion) {
             $result[] = [
                 'id' => $assertion->id(),
@@ -1667,7 +1671,7 @@ class ApiTestController extends ControllerBase
 
             // Create new assertions
             foreach ($assertions as $assertion) {
-                \Drupal\api_perf_tester\Entity\Assertion::create([
+                \Drupal\api_insight_lab\Entity\Assertion::create([
                     'config_id' => $config_id,
                     'assertion_type' => $assertion['assertion_type'] ?? 'status_code',
                     'field_path' => $assertion['field_path'] ?? '',
@@ -1822,7 +1826,7 @@ class ApiTestController extends ControllerBase
 
             return $results;
         } catch (\Exception $e) {
-            \Drupal::logger('api_perf_tester')->error('Assertion evaluation error: ' . $e->getMessage());
+            \Drupal::logger('api_insight_lab')->error('Assertion evaluation error: ' . $e->getMessage());
             return [['type' => 'error', 'passed' => false, 'message' => 'Evaluation error: ' . $e->getMessage(), 'expected' => '', 'actual' => '', 'operator' => '']];
         }
     }
@@ -2005,7 +2009,7 @@ class ApiTestController extends ControllerBase
             ]);
 
         } catch (\Exception $e) {
-            \Drupal::logger('api_perf_tester')->error('API discovery failed: ' . $e->getMessage());
+            \Drupal::logger('api_insight_lab')->error('API discovery failed: ' . $e->getMessage());
             return new JsonResponse([
                 'success' => false,
                 'message' => 'API discovery failed: ' . $e->getMessage(),
@@ -2152,7 +2156,7 @@ class ApiTestController extends ControllerBase
             $entities = $storage->loadMultiple();
 
             $chains = [];
-            /** @var \Drupal\api_perf_tester\Entity\RequestChain $entity */
+            /** @var \Drupal\api_insight_lab\Entity\RequestChain $entity */
             foreach ($entities as $entity) {
                 $stepsJson = $entity->get('steps_json')->value ?? '[]';
                 $chains[] = [
@@ -2186,7 +2190,7 @@ class ApiTestController extends ControllerBase
                 return new JsonResponse(['error' => 'At least one step is required'], 400);
             }
 
-            $chain = \Drupal\api_perf_tester\Entity\RequestChain::create([
+            $chain = \Drupal\api_insight_lab\Entity\RequestChain::create([
                 'name' => $data['name'],
                 'description' => $data['description'] ?? '',
                 'steps_json' => json_encode($data['steps']),
@@ -2210,7 +2214,7 @@ class ApiTestController extends ControllerBase
     {
         try {
             $storage = \Drupal::entityTypeManager()->getStorage('request_chain');
-            /** @var \Drupal\api_perf_tester\Entity\RequestChain|null $chain */
+            /** @var \Drupal\api_insight_lab\Entity\RequestChain|null $chain */
             $chain = $storage->load($id);
 
             if (!$chain) {

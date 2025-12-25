@@ -8,7 +8,7 @@
 /**
  * Install the new TestResult and ApiSetting entities.
  */
-function api_perf_tester_update_8001() {
+function api_insight_lab_update_8001() {
   $update_manager = \Drupal::entityDefinitionUpdateManager();
   $entity_type_manager = \Drupal::entityTypeManager();
 
@@ -36,7 +36,7 @@ function api_perf_tester_update_8001() {
 /**
  * Force install entities again if missing.
  */
-function api_perf_tester_update_8002() {
+function api_insight_lab_update_8002() {
   $update_manager = \Drupal::entityDefinitionUpdateManager();
   $entity_type_manager = \Drupal::entityTypeManager();
 
@@ -68,7 +68,7 @@ function api_perf_tester_update_8002() {
 /**
  * Install API Snapshot entity schema.
  */
-function api_perf_tester_update_9001() {
+function api_insight_lab_update_9001() {
   $entity_type_manager = \Drupal::entityTypeManager();
   
   try {
@@ -77,5 +77,39 @@ function api_perf_tester_update_9001() {
     return t('Installed API Snapshot entity schema.');
   } catch (\Exception $e) {
     return t('API Snapshot entity already installed or error: @error', ['@error' => $e->getMessage()]);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete all entity content before module uninstallation.
+ */
+function api_insight_lab_uninstall() {
+  $entity_types = [
+    'environment_profile',
+    'api_perf_result',
+    'api_assertion',
+    'api_test_config',
+    'api_snapshot',
+    'api_perf_setting',
+  ];
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  foreach ($entity_types as $entity_type_id) {
+    try {
+      $storage = $entity_type_manager->getStorage($entity_type_id);
+      $entities = $storage->loadMultiple();
+      if (!empty($entities)) {
+        $storage->delete($entities);
+        \Drupal::logger('api_insight_lab')->notice('Deleted all @type entities during uninstall.', ['@type' => $entity_type_id]);
+      }
+    } catch (\Exception $e) {
+      \Drupal::logger('api_insight_lab')->warning('Could not delete @type entities: @error', [
+        '@type' => $entity_type_id,
+        '@error' => $e->getMessage(),
+      ]);
+    }
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\api_perf_tester\Form;
+namespace Drupal\api_insight_lab\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -15,7 +15,7 @@ class GlobalSettingsForm extends ConfigFormBase
      */
     public function getFormId()
     {
-        return 'api_perf_tester_global_settings';
+        return 'api_insight_lab_global_settings';
     }
 
     /**
@@ -23,7 +23,7 @@ class GlobalSettingsForm extends ConfigFormBase
      */
     protected function getEditableConfigNames()
     {
-        return ['api_perf_tester.settings'];
+        return ['api_insight_lab.settings'];
     }
 
     /**
@@ -31,7 +31,7 @@ class GlobalSettingsForm extends ConfigFormBase
      */
     public function buildForm(array $form, FormStateInterface $form_state)
     {
-        $config = $this->config('api_perf_tester.settings');
+        $config = $this->config('api_insight_lab.settings');
 
         $form['default_auth'] = [
             '#type' => 'details',
@@ -116,7 +116,7 @@ class GlobalSettingsForm extends ConfigFormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $this->config('api_perf_tester.settings')
+        $this->config('api_insight_lab.settings')
             ->set('default_auth.type', $form_state->getValue('auth_type'))
             ->set('default_auth.basic_user', $form_state->getValue('basic_user'))
             ->set('default_auth.basic_pass', $form_state->getValue('basic_pass'))

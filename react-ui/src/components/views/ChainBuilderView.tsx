@@ -226,7 +226,7 @@ export function ChainBuilderView() {
         setResult(null);
 
         try {
-            const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+            const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
             // Convert globalVariables array to object for easier backend processing
             const globalVarsObject = globalVariables.reduce((acc, v) => {
                 if (v.key.trim()) acc[v.key] = v.value;
@@ -282,7 +282,7 @@ export function ChainBuilderView() {
         }
 
         try {
-            const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+            const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
             const response = await fetch('/api/perf-test/chains', {
                 method: 'POST',
                 headers: {
@@ -329,7 +329,7 @@ export function ChainBuilderView() {
 
     const deleteChain = async (chainId: string) => {
         try {
-            const csrfToken = (window as any).drupalSettings?.api_perf_tester?.csrf_token;
+            const csrfToken = (window as any).drupalSettings?.api_insight_lab?.csrf_token;
             const response = await fetch(`/api/perf-test/chains/${chainId}`, {
                 method: 'DELETE',
                 headers: {

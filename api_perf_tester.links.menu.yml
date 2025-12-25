@@ -1,6 +1,0 @@
-api_perf_tester.test_page:
-  title: 'API Performance Tester'
-  description: 'Test and monitor API performance.'
-  parent: system.admin_config_development
-  route_name: api_perf_tester.test_page
-  weight: 100

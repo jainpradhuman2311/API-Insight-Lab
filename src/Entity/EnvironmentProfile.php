@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\api_perf_tester\Entity;
+namespace Drupal\api_insight_lab\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
